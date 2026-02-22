@@ -1,0 +1,642 @@
+@import "tailwindcss";
+
+@import url('https://fonts.googleapis.com/css2?family=Jua&family=Inter:wght@400;500;600;700&family=Noto+Sans+KR:wght@400;500;700;900&display=swap');
+
+/* --- 공통 스타일 --- */
+body {
+  font-family: 'Noto Sans KR', sans-serif;
+  background-color: #f8fafc;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  margin: 0;
+  padding: 0;
+}
+
+.font-cute {
+  font-family: 'Jua', sans-serif;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.3s ease-out forwards;
+}
+
+/* 탭 네비게이션 */
+.main-nav {
+  display: flex;
+  background-color: #ffffff;
+  padding: 0.5rem;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+  margin-bottom: 1rem;
+  align-items: center;
+}
+
+.nav-tab {
+  flex: 1;
+  text-align: center;
+  padding: 0.75rem;
+  font-family: 'Jua', sans-serif;
+  font-size: 1.1rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: #9ca3af;
+}
+
+.nav-tab.active {
+  background-color: #3b82f6;
+  color: white;
+  font-weight: bold;
+  box-shadow: 0 4px 6px -1px rgba(59, 130, 246, 0.3);
+}
+
+.nav-tab.active.money-tab {
+  background-color: #8b5cf6;
+  box-shadow: 0 4px 6px -1px rgba(139, 92, 246, 0.3);
+}
+
+/* 로그인 상태 표시기 (헤더용) */
+.header-auth-badge {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  font-size: 0.75rem;
+  font-weight: bold;
+  background: rgba(0, 0, 0, 0.3);
+  color: white;
+  padding: 4px 10px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  backdrop-filter: blur(4px);
+}
+
+.header-auth-badge.connected {
+  background: rgba(16, 185, 129, 0.9);
+}
+
+.auth-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #d1d5db;
+}
+
+.header-auth-badge.connected .auth-dot {
+  background-color: #ffffff;
+  box-shadow: 0 0 5px rgba(255, 255, 255, 0.8);
+}
+
+/* Toast Message */
+#toast-container {
+  position: fixed;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(31, 41, 55, 0.95);
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 2rem;
+  z-index: 200;
+  font-size: 0.9rem;
+  transition: opacity 0.3s, transform 0.3s;
+  opacity: 0;
+  pointer-events: none;
+  width: max-content;
+  max-width: 90%;
+  text-align: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+#toast-container.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* 오늘공부 스타일 */
+#study-app-wrapper {
+  --blue-100: #dbeafe;
+  --blue-500: #3b82f6;
+  --blue-600: #2563eb;
+  --red-500: #ef4444;
+  --red-600: #dc2626;
+  --green-500: #22c55e;
+  --green-600: #16a34a;
+  --yellow-500: #eab308;
+  --yellow-600: #ca8a04;
+  --indigo-500: #6366f1;
+  --indigo-600: #4f46e5;
+  --purple-500: #a855f7;
+  --purple-600: #9333ea;
+  --pink-100: #fce7f3;
+  --pink-500: #ec4899;
+  --pink-600: #db2777;
+  --gray-100: #f3f4f6;
+  --gray-200: #e5e7eb;
+  --gray-300: #d1d5db;
+  --gray-400: #9ca3af;
+  --gray-500: #6b7280;
+  --gray-600: #4b5563;
+  --gray-800: #1f2937;
+  padding: 1rem;
+}
+
+#study-app-wrapper .app-container {
+  max-width: 56rem;
+  margin: 0 auto;
+  background-color: white;
+  border-radius: 0.75rem;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  padding: 1.5rem;
+  position: relative;
+}
+
+#study-app-wrapper header {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  position: relative;
+}
+
+#study-app-wrapper .profile-img-container {
+  width: 120px;
+  height: 120px;
+  margin: 0 auto 1rem;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 4px solid var(--blue-100);
+  background-color: var(--gray-100);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+#study-app-wrapper .profile-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+#study-app-wrapper .profile-placeholder {
+  font-size: 3rem;
+  color: var(--gray-300);
+}
+
+#study-app-wrapper .today-badge {
+  position: absolute;
+  bottom: 5px;
+  background-color: rgba(0, 0, 0, 0.6);
+  color: white;
+  padding: 2px 8px;
+  border-radius: 10px;
+  font-size: 0.75rem;
+}
+
+#study-app-wrapper h1 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--blue-600);
+  margin: 0;
+}
+
+#study-app-wrapper .subtitle {
+  font-size: 1rem;
+  color: var(--gray-600);
+  margin-top: 0.2rem;
+}
+
+#study-app-wrapper .clock {
+  font-size: 1.1rem;
+  color: var(--gray-600);
+  font-weight: 500;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+#study-app-wrapper .progress-section {
+  margin-bottom: 1.5rem;
+}
+
+#study-app-wrapper .progress-info {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--blue-600);
+}
+
+#study-app-wrapper .progress-track {
+  width: 100%;
+  background-color: var(--gray-200);
+  border-radius: 9999px;
+  height: 1rem;
+}
+
+#study-app-wrapper .progress-fill {
+  background-color: var(--blue-500);
+  height: 100%;
+  border-radius: 9999px;
+  transition: width 0.3s;
+  width: 0%;
+}
+
+#study-app-wrapper .total-time {
+  text-align: center;
+  font-size: 1.125rem;
+  font-weight: 500;
+  color: var(--gray-800);
+  margin-top: 0.5rem;
+}
+
+#study-app-wrapper .task-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.75rem;
+}
+
+@media (min-width: 768px) {
+  #study-app-wrapper .task-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+#study-app-wrapper .task-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: var(--gray-100);
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+}
+
+#study-app-wrapper .task-item.in-progress {
+  background-color: #fefcbf;
+}
+
+#study-app-wrapper .task-item.completed .task-text {
+  text-decoration: line-through;
+  color: var(--gray-400);
+}
+
+#study-app-wrapper .task-content {
+  flex-grow: 1;
+}
+
+#study-app-wrapper .task-text {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--gray-800);
+}
+
+#study-app-wrapper .task-status {
+  font-size: 0.75rem;
+  color: var(--gray-500);
+}
+
+#study-app-wrapper .btn {
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  font-weight: 700;
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  font-size: 0.9rem;
+}
+
+#study-app-wrapper .btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+#study-app-wrapper .btn-blue {
+  background-color: var(--blue-500);
+}
+
+#study-app-wrapper .btn-blue:hover {
+  background-color: var(--blue-600);
+}
+
+#study-app-wrapper .btn-red {
+  background-color: var(--red-500);
+}
+
+#study-app-wrapper .btn-red:hover {
+  background-color: var(--red-600);
+}
+
+#study-app-wrapper .btn-green {
+  background-color: var(--green-500);
+}
+
+#study-app-wrapper .btn-green:hover {
+  background-color: var(--green-600);
+}
+
+#study-app-wrapper .btn-gray {
+  background-color: var(--gray-500);
+}
+
+#study-app-wrapper .btn-gray:hover {
+  background-color: var(--gray-600);
+}
+
+#study-app-wrapper .btn-indigo {
+  background-color: var(--indigo-500);
+}
+
+#study-app-wrapper .btn-indigo:hover {
+  background-color: var(--indigo-600);
+}
+
+#study-app-wrapper .btn-yellow {
+  background-color: var(--yellow-500);
+}
+
+#study-app-wrapper .btn-yellow:hover {
+  background-color: var(--yellow-600);
+}
+
+#study-app-wrapper .btn-purple {
+  background-color: var(--purple-500);
+}
+
+#study-app-wrapper .btn-purple:hover {
+  background-color: var(--purple-600);
+}
+
+#study-app-wrapper .btn-pink {
+  background-color: var(--pink-500);
+}
+
+#study-app-wrapper .btn-pink:hover {
+  background-color: var(--pink-600);
+}
+
+#study-app-wrapper .btn-timer {
+  width: 4rem;
+  flex-shrink: 0;
+  margin-left: 0.5rem;
+  font-size: 0.8rem;
+}
+
+#study-app-wrapper .button-area {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 2rem;
+}
+
+@media (min-width: 640px) {
+  #study-app-wrapper .button-area {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  #study-app-wrapper .btn-bottom {
+    flex: 1;
+    white-space: nowrap;
+  }
+}
+
+#study-app-wrapper .modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+}
+
+#study-app-wrapper .modal-content {
+  background-color: white;
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  width: 90%;
+  max-width: 28rem;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+#study-app-wrapper .modal-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--gray-800);
+  margin-bottom: 1rem;
+}
+
+#study-app-wrapper .hidden {
+  display: none;
+}
+
+#study-app-wrapper textarea {
+  width: 100%;
+  height: 10rem;
+  padding: 0.75rem;
+  border: 1px solid var(--gray-300);
+  border-radius: 0.5rem;
+  resize: none;
+  font-family: inherit;
+}
+
+#study-app-wrapper .calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0.2rem;
+}
+
+#study-app-wrapper .cal-day {
+  text-align: center;
+  padding: 0.2rem 0;
+  border-radius: 0.2rem;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 3.5rem;
+  font-size: 0.8rem;
+}
+
+#study-app-wrapper .cal-day:hover {
+  background-color: var(--gray-200);
+}
+
+#study-app-wrapper .bg-green-light {
+  background-color: #86efac;
+}
+
+#study-app-wrapper .bg-yellow-light {
+  background-color: #fde047;
+}
+
+#study-app-wrapper .reward-list {
+  margin-top: 1.5rem;
+  border-top: 1px solid var(--gray-200);
+  padding-top: 1rem;
+}
+
+#study-app-wrapper .reward-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem;
+  border-bottom: 1px solid var(--gray-100);
+  font-size: 0.9rem;
+}
+
+#study-app-wrapper .prob-container {
+  background-color: var(--gray-100);
+  border-radius: 0.5rem;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+#study-app-wrapper .prob-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.5rem;
+  font-size: 0.8rem;
+}
+
+#study-app-wrapper .prob-name {
+  width: 45%;
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#study-app-wrapper .prob-bar-area {
+  flex-grow: 1;
+  height: 0.8rem;
+  background-color: var(--gray-300);
+  border-radius: 0.5rem;
+  overflow: hidden;
+  margin: 0 0.5rem;
+}
+
+#study-app-wrapper .prob-bar-fill {
+  height: 100%;
+  transition: width 0.5s ease-out;
+}
+
+#study-app-wrapper .bar-rank-1 {
+  background-color: var(--yellow-500);
+}
+
+#study-app-wrapper .bar-rank-2 {
+  background-color: var(--blue-500);
+}
+
+#study-app-wrapper .bar-rank-3 {
+  background-color: var(--green-500);
+}
+
+#study-app-wrapper .bar-rank-4 {
+  background-color: var(--indigo-500);
+}
+
+#study-app-wrapper .bar-rank-5 {
+  background-color: var(--gray-500);
+}
+
+#study-app-wrapper .cheer-section {
+  margin-top: 2rem;
+  background-color: var(--pink-100);
+  padding: 1rem;
+  border-radius: 0.75rem;
+  border: 1px solid var(--pink-500);
+}
+
+#study-app-wrapper .cheer-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--pink-600);
+  margin-bottom: 0.5rem;
+}
+
+#study-app-wrapper .cheer-input-group {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  flex-direction: column;
+}
+
+@media (min-width: 640px) {
+  #study-app-wrapper .cheer-input-group {
+    flex-direction: row;
+  }
+}
+
+#study-app-wrapper .cheer-input {
+  padding: 0.5rem;
+  border: 1px solid var(--pink-500);
+  border-radius: 0.5rem;
+  outline: none;
+  font-size: 0.9rem;
+}
+
+#study-app-wrapper .cheer-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+#study-app-wrapper .cheer-item {
+  background-color: white;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.9rem;
+}
+
+#study-app-wrapper .cheer-writer {
+  font-weight: 700;
+  color: var(--gray-500);
+  margin-right: 0.5rem;
+  font-size: 0.8rem;
+}
+
+#study-app-wrapper .cheer-delete-btn {
+  color: var(--gray-400);
+  cursor: pointer;
+  margin-left: 0.5rem;
+}
