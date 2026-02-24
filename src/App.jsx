@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import StudyApp from './components/StudyApp';
 import MoneyApp from './components/MoneyApp';
+import UsageApp from './components/UsageApp';
 
 function App() {
   const [activeTab, setActiveTab] = useState('study');
@@ -24,10 +25,22 @@ function App() {
         >
           👛 용돈관리
         </button>
+        <button
+          className={`nav-tab usage-tab ${activeTab === 'usage' ? 'active' : ''}`}
+          style={{
+            backgroundColor: activeTab === 'usage' ? '#F472B6' : 'transparent',
+            boxShadow: activeTab === 'usage' ? '0 4px 6px -1px rgba(244, 114, 182, 0.3)' : 'none'
+          }}
+          onClick={() => setActiveTab('usage')}
+        >
+          🎮 놀이관리
+        </button>
       </nav>
 
       <main>
-        {activeTab === 'study' ? <StudyApp /> : <MoneyApp />}
+        {activeTab === 'study' ? <StudyApp /> :
+          activeTab === 'money' ? <MoneyApp /> :
+            <UsageApp />}
       </main>
     </div>
   );
